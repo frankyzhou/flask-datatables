@@ -8,6 +8,9 @@ app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'IB'
 mongo = PyMongo(app=app)
 app.debug = True
+file = open("Result.csv")
+columns = ['code', 'grade']
+collection = [dict(zip(columns, line.strip().split(","))) for line in file]
 
 class BaseDataTables:
     
@@ -58,7 +61,7 @@ class BaseDataTables:
          self.cardinality_filtered = len(self.result_data)
          self.cardinality = len(self.result_data)
 
-columns = ['code', 'grade']
+
 
 @app.route('/')
 def index():
@@ -66,10 +69,6 @@ def index():
 
 @app.route('/dt')
 def get_server_data():
-    file  = open("Result.csv")
-
-    collection = [dict(zip(columns, line.strip().split(","))) for line in file]
-    
     results = BaseDataTables(request, columns, collection).output_result()
     
     # return the results as a string for the datatable
