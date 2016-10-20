@@ -38,7 +38,8 @@ $(document).ready( function () {
 
 	$('#table_id_example tbody').on('click', 'tr', function () {
         var data = table.row( this ).data();
-        window.location.href="https://xueqiu.com/P/" + data[0];
+        //window.location.href="https://xueqiu.com/P/" + data[0];
+        window.open("https://xueqiu.com/P/" + data[0]);
         //alert( 'You clicked on '+data[0]+'\'s row' );
     } );
 } );

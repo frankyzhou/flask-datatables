@@ -9,8 +9,9 @@ app.config['MONGO_DBNAME'] = 'IB'
 mongo = PyMongo(app=app)
 app.debug = True
 file = open("Result.csv")
-columns = ['code', 'grade']
-collection = [dict(zip(columns, line.strip().split(","))) for line in file]
+columns = ["code", "grade", "alpha", "beta", "sharp", "drawdown", "sortino", "trade_times", "market", "start_time", "fans", "time"]
+collection = [dict(zip(columns, line.strip().split("\t"))) for line in file]
+file.close()
 
 class BaseDataTables:
     
@@ -47,7 +48,7 @@ class BaseDataTables:
         for row in self.result_data:
             aaData_row = []
             for i in range(len(self.columns)):
-                print row, self.columns, self.columns[i]
+                # print row, self.columns, self.columns[i]
                 aaData_row.append(str(row[ self.columns[i] ]).replace('"','\\"'))
             aaData_rows.append(aaData_row)
             
